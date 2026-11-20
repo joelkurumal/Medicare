@@ -1,0 +1,543 @@
+
+/* =========================================
+   MEDICARE ROLE AND DEPARTMENT PAGE STYLES
+========================================= */
+
+:root {
+    --role-primary: #1E3A8A;
+    --role-teal: #0D9488;
+    --role-background: #F8FAFC;
+    --role-border: #E2E8F0;
+    --role-text: #0F172A;
+    --role-muted: #64748B;
+}
+
+
+/* =========================================
+   CLICKABLE DEPARTMENT CARDS
+========================================= */
+
+.department-card-link {
+    display: block;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.department-card-link:hover {
+    color: inherit;
+}
+
+.department-card-link .department-card {
+    height: 100%;
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.department-card-link:hover .department-card {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(30, 58, 138, 0.12);
+}
+
+.department-card-link .department-footer {
+    color: var(--role-teal);
+    font-weight: 700;
+}
+
+
+/* =========================================
+   LOGIN PAGE
+========================================= */
+
+.login-section {
+    min-height: 75vh;
+    padding: 65px 0;
+    display: flex;
+    align-items: center;
+    background: var(--role-background);
+}
+
+.login-card {
+    background: white;
+    padding: 38px;
+    border-radius: 20px;
+    border: 1px solid var(--role-border);
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.07);
+}
+
+.login-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E0F2FE;
+    color: var(--role-primary);
+    font-size: 35px;
+}
+
+.login-card h2 {
+    color: var(--role-primary);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+}
+
+.login-card p {
+    color: var(--role-muted);
+}
+
+.login-card .form-label {
+    font-weight: 600;
+    color: var(--role-text);
+}
+
+.login-card .form-control {
+    min-height: 47px;
+    border: 1px solid #CBD5E1;
+    border-radius: 9px;
+}
+
+.login-card .form-control:focus {
+    border-color: var(--role-teal);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.login-submit {
+    min-height: 48px;
+    background: var(--role-primary);
+    border: none;
+    border-radius: 9px;
+    font-weight: 700;
+}
+
+.login-submit:hover {
+    background: var(--role-teal);
+}
+
+.login-help {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--role-border);
+}
+
+.login-help > i {
+    color: var(--role-teal);
+    font-size: 23px;
+}
+
+.login-help p {
+    margin: 8px 0 5px;
+    font-size: 13px;
+}
+
+.login-help small {
+    color: var(--role-muted);
+    font-size: 11px;
+}
+
+
+/* =========================================
+   DOCTOR DASHBOARD
+========================================= */
+
+.doctor-dashboard-section {
+    min-height: 70vh;
+    padding: 55px 0 75px;
+    background: var(--role-background);
+}
+
+.dashboard-welcome {
+    margin-bottom: 30px;
+}
+
+.dashboard-welcome h1 {
+    margin-top: 10px;
+    color: var(--role-primary);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+}
+
+.dashboard-welcome p {
+    color: var(--role-muted);
+}
+
+.doctor-dashboard-card {
+    height: 100%;
+    padding: 26px;
+    background: white;
+    border: 1px solid var(--role-border);
+    border-radius: 17px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+.doctor-dashboard-card h3 {
+    color: var(--role-primary);
+    font-weight: 800;
+}
+
+.doctor-dashboard-card h5 {
+    color: var(--role-muted);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.doctor-dashboard-card p {
+    color: var(--role-muted);
+}
+
+.dashboard-card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    border-radius: 13px;
+    background: #E0F2FE;
+    color: var(--role-primary);
+    font-size: 23px;
+}
+
+.doctor-dashboard-card .table {
+    margin-bottom: 0;
+}
+
+.doctor-dashboard-card .table thead th {
+    background: #EFF6FF;
+    color: var(--role-primary);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.doctor-dashboard-card .table td {
+    color: var(--role-text);
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.doctor-dashboard-card .btn-primary {
+    background: var(--role-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+}
+
+.doctor-dashboard-card .btn-primary:hover {
+    background: var(--role-teal);
+}
+
+.appointment-total {
+    padding: 8px 13px;
+    background: #E0F2FE;
+    color: var(--role-primary);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   AVAILABILITY STATUS
+========================================= */
+
+.status-available {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    color: #047857;
+    background: #D1FAE5;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-unavailable {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    color: #B91C1C;
+    background: #FEE2E2;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   NAVBAR BUTTONS
+========================================= */
+
+.custom-navbar .btn-outline-danger {
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.custom-navbar .btn-primary-custom {
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 767px) {
+
+    .login-section {
+        padding: 35px 12px;
+    }
+
+    .login-card {
+        padding: 25px 20px;
+    }
+
+    .doctor-dashboard-section {
+        padding: 35px 0 50px;
+    }
+
+    .dashboard-welcome h1 {
+        font-size: 25px;
+    }
+
+    .doctor-dashboard-card {
+        padding: 19px;
+    }
+
+}
+
+
+/* Doctor card appointment action */
+.doctor-card-actions {
+    padding: 0 20px 20px;
+}
+
+.doctor-book-btn {
+    display: inline-flex;
+    width: 100%;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 10px;
+    padding: 11px 16px;
+    background: #0f766e;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.doctor-book-btn:hover {
+    background: #115e59;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.doctor-book-btn:disabled {
+    background: #94a3b8;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: .85;
+}
+
+.ai-nav-trigger {
+    border: 0;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.ai-nav-trigger:hover {
+    color: #0f766e;
+}
+
+.selected-doctor-note {
+    margin-top: 12px;
+    color: #0f766e;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PATIENT SIGN UP PAGE
+========================================= */
+
+.signup-section {
+    padding: 55px 0 75px;
+}
+
+.signup-card {
+    padding: 38px;
+}
+
+.signup-card h2 {
+    color: var(--role-primary);
+    font-weight: 800;
+    font-family: 'Manrope', sans-serif;
+}
+
+.signup-card .form-label {
+    color: var(--role-text);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.signup-card .form-control {
+    min-height: 46px;
+    border: 1px solid #CBD5E1;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.signup-card textarea.form-control {
+    min-height: 85px;
+}
+
+.signup-card .form-control:focus {
+    border-color: var(--role-teal);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.signup-card .errorlist {
+    color: #dc3545;
+    font-size: 12px;
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.signup-login-link {
+    color: var(--role-teal);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.signup-login-link:hover {
+    color: var(--role-primary);
+    text-decoration: underline;
+}
+
+.signup-security-note {
+    text-align: center;
+    color: var(--role-muted);
+    font-size: 12px;
+    margin-top: 22px;
+}
+
+@media (max-width: 576px) {
+    .signup-card {
+        padding: 25px 18px;
+    }
+
+    .signup-section {
+        padding: 30px 10px 45px;
+    }
+}
+
+
+
+/* ==========================================
+   DOCTOR APPOINTMENT MODAL
+========================================== */
+
+.appointment-modal-content {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+}
+
+.appointment-modal-content .modal-header {
+    padding: 24px 26px;
+    background: #f0fdfa;
+    border-bottom: 1px solid #dceeea;
+}
+
+.appointment-modal-content .modal-title {
+    color: #0f3d3a;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin-top: 7px;
+}
+
+.appointment-modal-content .modal-body {
+    padding: 26px;
+}
+
+.selected-doctor-note {
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    background: #f0fdfa;
+    border: 1px solid #ccfbf1;
+    border-radius: 10px;
+    color: #0f766e;
+    font-weight: 700;
+}
+
+.appointment-modal-content .form-label {
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.appointment-modal-content .form-control {
+    min-height: 46px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.appointment-modal-content textarea.form-control {
+    min-height: 95px;
+}
+
+.appointment-modal-content .form-control:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.appointment-modal-note {
+    padding: 12px;
+    background: #fffbeb;
+    color: #92400e;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.appointment-modal-content .btn-primary-custom {
+    border: none;
+    border-radius: 9px;
+    padding: 12px 15px;
+    background: #0f766e;
+    color: white;
+    font-weight: 700;
+}
+
+.appointment-modal-content .btn-primary-custom:hover {
+    background: #115e59;
+}
+
+@media (max-width: 576px) {
+
+    .appointment-modal-content .modal-header,
+    .appointment-modal-content .modal-body {
+        padding: 19px;
+    }
+
+}
+
+

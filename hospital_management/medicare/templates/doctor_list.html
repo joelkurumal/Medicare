@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if department %}
+        {{ department.name }} Doctors | MediCare
+    {% else %}
+        Our Doctors | MediCare
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <span class="section-label">OUR MEDICAL TEAM</span>
+
+        {% if department %}
+            <h1>{{ department.name }} Doctors</h1>
+            <p>Meet the specialists in our {{ department.name }} department.</p>
+        {% else %}
+            <h1>Our Doctors</h1>
+            <p>Meet our experienced and dedicated medical professionals.</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="doctors-section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <h2>
+                    {% if department %}
+                        {{ department.name }} Specialists
+                    {% else %}
+                        Our Medical Team
+                    {% endif %}
+                </h2>
+                <p>Find the right specialist for your healthcare needs.</p>
+            </div>
+
+            {% if department %}
+                <a href="{% url 'doctor_list' %}" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left me-1"></i> All Doctors
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="row g-4">
+            {% for doctor in doctors %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="doctor-card h-100">
+                        <div class="doctor-avatar">
+                            {% if doctor.profile_image %}
+                                <img src="{{ doctor.profile_image.url }}"
+                                     alt="Dr. {{ doctor.user.get_full_name|default:doctor.user.username }}"
+                                     class="doctor-profile-image">
+                            {% else %}
+                                <div class="doctor-placeholder">
+                                    {{ doctor.user.first_name|default:doctor.user.username|first|upper }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="doctor-info">
+                            <h3>Dr. {{ doctor.user.get_full_name|default:doctor.user.username }}</h3>
+                            <p class="doctor-specialization">{{ doctor.specialization }}</p>
+
+                            <p>
+                                <strong>Department:</strong>
+                                {% if doctor.department %}
+                                    {{ doctor.department.name }}
+                                {% else %}
+                                    Not assigned
+                                {% endif %}
+                            </p>
+
+                            {% if doctor.qualification %}
+                                <p><strong>Qualification:</strong> {{ doctor.qualification }}</p>
+                            {% endif %}
+
+                            <p><strong>Experience:</strong> {{ doctor.experience }} years</p>
+
+                            {% if doctor.phone %}
+                                <p><strong>Phone:</strong> {{ doctor.phone }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="doctor-status">
+                            {% if doctor.available %}
+                                <span class="status-available">
+                                    <i class="bi bi-check-circle-fill"></i> Available
+                                </span>
+                            {% else %}
+                                <span class="status-unavailable">
+                                    <i class="bi bi-x-circle-fill"></i> Not Available
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="doctor-card-actions p-3 pt-0">
+                            {% if user.is_authenticated and user.patient_profile %}
+                                {% if doctor.available %}
+                                    <button type="button"
+                                            class="btn btn-success w-100 doctor-book-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#doctorAppointmentModal"
+                                            data-doctor-id="{{ doctor.id }}"
+                                            data-doctor-name="Dr. {{ doctor.user.get_full_name|default:doctor.user.username }}">
+                                        <i class="bi bi-calendar2-check me-2"></i>Take Appointment
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="btn btn-secondary w-100" disabled>
+                                        <i class="bi bi-calendar-x me-2"></i>Currently Unavailable
+                                    </button>
+                                {% endif %}
+                            {% elif not user.is_authenticated %}
+                                <a href="{% url 'patient_signup' %}" class="btn btn-success w-100">
+                                    Register to Book
+                                </a>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-outline-secondary w-100">
+                                    Patient Login Required
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="empty-state text-center py-5">
+                        <i class="bi bi-person-x"></i>
+                        <h3>No Doctors Available</h3>
+                        <p>
+                            {% if department %}
+                                No doctors have been added to {{ department.name }} yet.
+                            {% else %}
+                                Doctor information will appear here once added by the administrator.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if user.is_authenticated and user.patient_profile %}
+<div class="modal fade" id="doctorAppointmentModal" tabindex="-1"
+     aria-labelledby="doctorAppointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content appointment-modal-content">
+            <div class="modal-header">
+                <div>
+                    <span class="text-success fw-bold small">MEDICARE APPOINTMENTS</span>
+                    <h5 class="modal-title mt-1" id="doctorAppointmentModalLabel">Book an Appointment</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="selected-doctor-note">
+                    Selected Doctor: <span id="appointmentDoctorName">Selected Doctor</span>
+                </div>
+
+                <form method="POST" action="{% url 'quick_book_appointment' %}" id="doctorAppointmentForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="doctor_id" id="modalDoctorId">
+
+                    <div class="mb-3">
+                        <label for="modalAppointmentDate" class="form-label">Appointment Date</label>
+                        <input type="date" name="appointment_date" id="modalAppointmentDate"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modalAppointmentTime" class="form-label">Appointment Time</label>
+                        <input type="time" name="appointment_time" id="modalAppointmentTime"
+                               class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modalAppointmentReason" class="form-label">Reason for Appointment</label>
+                        <textarea name="reason" id="modalAppointmentReason" class="form-control"
+                                  rows="3" placeholder="Briefly describe your health concern..." required></textarea>
+                    </div>
+
+                    <div class="appointment-modal-note mb-3">
+                        Please select a future date and time. Your appointment will be submitted for confirmation.
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-light w-50" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary-custom w-50">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

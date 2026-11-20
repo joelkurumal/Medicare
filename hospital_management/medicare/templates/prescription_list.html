@@ -1,0 +1,95 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Prescriptions | MediCare{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <h1>Prescriptions</h1>
+        <p>Medicine details and prescription instructions.</p>
+    </div>
+</section>
+
+<section class="prescriptions-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>Patient Prescriptions</h2>
+            <p>Prescription information recorded by our medical team.</p>
+        </div>
+
+        <div class="row g-4">
+
+            {% for prescription in prescriptions %}
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="prescription-card">
+
+                    <div class="service-icon">
+                        <i class="bi bi-capsule"></i>
+                    </div>
+
+                    <h3>{{ prescription.medicine_name }}</h3>
+
+                    <p>
+                        <strong>Patient:</strong>
+                        {{ prescription.medical_record.patient.user.get_full_name|default:prescription.medical_record.patient.user.username }}
+                    </p>
+
+                    <p>
+                        <strong>Doctor:</strong>
+                        Dr. {{ prescription.medical_record.doctor.user.get_full_name|default:prescription.medical_record.doctor.user.username }}
+                    </p>
+
+                    <p>
+                        <strong>Dosage:</strong>
+                        {{ prescription.dosage }}
+                    </p>
+
+                    <p>
+                        <strong>Frequency:</strong>
+                        {{ prescription.frequency }}
+                    </p>
+
+                    <p>
+                        <strong>Duration:</strong>
+                        {{ prescription.duration }}
+                    </p>
+
+                    <p>
+                        <strong>Instructions:</strong>
+                        {{ prescription.instructions|default:"No additional instructions." }}
+                    </p>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        <i class="bi bi-calendar3 me-1"></i>
+                        {{ prescription.created_at|date:"d M Y" }}
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="bi bi-capsule-pill"></i>
+                    <h3>No Prescriptions Available</h3>
+                    <p>Prescription information will appear here once added.</p>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

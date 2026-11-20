@@ -1,0 +1,101 @@
+
+{% extends 'base.html' %}
+
+{% block title %}My Appointments | MediCare{% endblock %}
+
+{% block content %}
+
+<section class="my-appointments-section">
+    <div class="container">
+
+        <div class="my-appointments-heading">
+            <div>
+                <span class="section-label">PATIENT DASHBOARD</span>
+                <h1>My Appointments</h1>
+                <p>View and track your hospital appointments.</p>
+            </div>
+
+            <a href="{% url 'book_appointment' %}" class="booking-submit">
+                <i class="bi bi-plus-lg"></i>
+                Book Appointment
+            </a>
+        </div>
+
+        <div class="appointments-list">
+
+            {% for appointment in appointments %}
+
+            <div class="appointment-item">
+
+                <div class="appointment-date-box">
+                    <i class="bi bi-calendar-event"></i>
+                    <strong>{{ appointment.appointment_date|date:"d" }}</strong>
+                    <span>{{ appointment.appointment_date|date:"M Y" }}</span>
+                </div>
+
+                <div class="appointment-details">
+                    <h3>
+                        Dr. {{ appointment.doctor.user.get_full_name|default:appointment.doctor.user.username }}
+                    </h3>
+
+                    <p>
+                        {{ appointment.doctor.specialization }}
+                        {% if appointment.doctor.department %}
+                            · {{ appointment.doctor.department.name }}
+                        {% endif %}
+                    </p>
+
+                    <div class="appointment-meta">
+                        <span>
+                            <i class="bi bi-clock"></i>
+                            {{ appointment.appointment_time|time:"h:i A" }}
+                        </span>
+
+                        <span>
+                            <i class="bi bi-person"></i>
+                            {{ appointment.patient }}
+                        </span>
+                    </div>
+
+                    {% if appointment.reason %}
+                        <p class="appointment-reason">
+                            Reason: {{ appointment.reason }}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <div class="appointment-status">
+                    {% if appointment.status == 'Confirmed' %}
+                        <span class="status-confirmed">Confirmed</span>
+                    {% elif appointment.status == 'Completed' %}
+                        <span class="status-completed">Completed</span>
+                    {% elif appointment.status == 'Cancelled' %}
+                        <span class="status-cancelled">Cancelled</span>
+                    {% else %}
+                        <span class="status-pending">Pending</span>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="empty-appointments">
+                <i class="bi bi-calendar-x"></i>
+                <h3>No Appointments Yet</h3>
+                <p>You have not booked any appointments.</p>
+
+                <a href="{% url 'book_appointment' %}"
+                   class="booking-submit">
+                    Book Your First Appointment
+                </a>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

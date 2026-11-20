@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Create Prescription | MediCare{% endblock %}
+{% block content %}
+<section class="page-header">
+  <div class="container">
+    <h1>Create Prescription</h1>
+    <p>Appointment for {{ appointment.patient.user.get_full_name|default:appointment.patient.user.username }}</p>
+  </div>
+</section>
+<section class="table-section">
+  <div class="container">
+    <div class="card p-4">
+      <div class="mb-3">
+        <h4>Appointment Details</h4>
+        <p><strong>Patient:</strong> {{ appointment.patient.user.get_full_name|default:appointment.patient.user.username }}</p>
+        <p><strong>Date:</strong> {{ appointment.appointment_date }} &nbsp; <strong>Time:</strong> {{ appointment.appointment_time }}</p>
+        <p><strong>Reason:</strong> {{ appointment.reason|default:"Not specified" }}</p>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="diagnosis">Diagnosis *</label>
+          <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="consultation_notes">Consultation notes</label>
+          <textarea class="form-control" name="consultation_notes" id="consultation_notes" rows="3"></textarea>
+        </div>
+        <h4 class="mt-4">Medicines</h4>
+        <div id="medicine-rows">
+          <div class="medicine-row border rounded p-3 mb-3">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Medicine name *</label><input class="form-control" name="medicine_name" required></div>
+              <div class="col-md-6"><label class="form-label">Dosage *</label><input class="form-control" name="dosage" placeholder="e.g. 500 mg" required></div>
+              <div class="col-md-4"><label class="form-label">Frequency *</label><input class="form-control" name="frequency" placeholder="e.g. Twice daily" required></div>
+              <div class="col-md-4"><label class="form-label">Duration *</label><input class="form-control" name="duration" placeholder="e.g. 5 days" required></div>
+              <div class="col-md-4"><label class="form-label">Instructions</label><input class="form-control" name="instructions" placeholder="e.g. After food"></div>
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm mt-3 remove-medicine">Remove medicine</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-primary mb-3" id="add-medicine">Add another medicine</button>
+        <div class="d-flex gap-2 flex-wrap">
+          <button type="submit" class="btn btn-primary">Save &amp; Release Prescription</button>
+          <a href="{% url 'doctor_dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+(function () {
+  const rows = document.getElementById('medicine-rows');
+  const add = document.getElementById('add-medicine');
+  add.addEventListener('click', function () {
+    const first = rows.querySelector('.medicine-row');
+    const clone = first.cloneNode(true);
+    clone.querySelectorAll('input').forEach(input => input.value = '');
+    rows.appendChild(clone);
+  });
+  rows.addEventListener('click', function (event) {
+    if (event.target.classList.contains('remove-medicine')) {
+      const all = rows.querySelectorAll('.medicine-row');
+      if (all.length > 1) event.target.closest('.medicine-row').remove();
+    }
+  });
+})();
+</script>
+{% endblock %}

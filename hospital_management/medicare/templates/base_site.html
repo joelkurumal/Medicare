@@ -1,0 +1,34 @@
+
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}
+MediCare Hospital Administration
+{% endblock %}
+
+{% block extrastyle %}
+
+{{ block.super }}
+
+<link rel="stylesheet"
+      href="{% static 'admin/css/custom_admin.css' %}">
+
+{% endblock %}
+
+
+{% block branding %}
+
+<h1 id="site-name">
+
+    <span class="admin-brand-icon">
+        <i class="bi bi-heart-pulse-fill"></i>
+    </span>
+
+    MediCare Hospital Administration
+
+</h1>
+
+{% endblock %}
+
+
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,181 @@
+
+/* =========================================
+   MEDICARE ADMIN THEME
+========================================= */
+
+:root {
+    --admin-primary: #1E3A8A;
+    --admin-teal: #0D9488;
+    --admin-background: #F1F5F9;
+    --admin-border: #E2E8F0;
+}
+
+
+/* HEADER */
+
+#header {
+    background: linear-gradient(
+        110deg,
+        #1E3A8A,
+        #0D9488
+    );
+
+    color: white;
+    padding: 15px 25px;
+    min-height: 60px;
+}
+
+#site-name {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.admin-brand-icon {
+    color: #99F6E4;
+    margin-right: 9px;
+}
+
+#header a:link,
+#header a:visited {
+    color: white;
+}
+
+
+/* BODY */
+
+body {
+    background: var(--admin-background);
+    font-family: "Segoe UI", sans-serif;
+}
+
+#content {
+    padding: 28px;
+}
+
+
+/* BREADCRUMBS */
+
+div.breadcrumbs {
+    background: #E0F2FE;
+    color: #1E3A8A;
+    padding: 13px 25px;
+}
+
+div.breadcrumbs a {
+    color: #0D9488;
+}
+
+
+/* MODULE HEADINGS */
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: #1E3A8A;
+    color: white;
+    font-weight: 700;
+    padding: 12px 15px;
+}
+
+
+/* MODULE CARDS */
+
+.module {
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+.module table {
+    background: white;
+}
+
+
+/* BUTTONS */
+
+.button,
+input[type=submit],
+input[type=button],
+.submit-row input,
+a.button {
+    background: #0D9488;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    padding: 9px 16px;
+    font-weight: 600;
+}
+
+.button:hover,
+input[type=submit]:hover,
+.submit-row input:hover {
+    background: #0F766E;
+    color: white;
+}
+
+
+/* LINKS */
+
+a:link,
+a:visited {
+    color: #1E3A8A;
+}
+
+a:hover {
+    color: #0D9488;
+}
+
+
+/* FORM FIELDS */
+
+input,
+textarea,
+select {
+    border-radius: 5px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #0D9488;
+}
+
+
+/* FILTER PANEL */
+
+#changelist-filter {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+
+/* TABLES */
+
+#result_list {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#result_list thead th {
+    background: #E0F2FE;
+    color: #1E3A8A;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 767px) {
+
+    #content {
+        padding: 15px;
+    }
+
+    #site-name {
+        font-size: 17px;
+    }
+
+}

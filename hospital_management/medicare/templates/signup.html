@@ -1,0 +1,136 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Patient Registration | MediCare{% endblock %}
+
+{% block content %}
+
+<section class="login-section signup-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+
+                <div class="login-card signup-card">
+
+                    <div class="login-icon">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+
+                    <div class="text-center mb-4">
+                        <span class="section-label">MEDICARE PATIENT PORTAL</span>
+                        <h2>Create Your Account</h2>
+                        <p>Register to access healthcare services and book appointments.</p>
+                    </div>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">First Name</label>
+                                {{ form.first_name }}
+                                {{ form.first_name.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Last Name</label>
+                                {{ form.last_name }}
+                                {{ form.last_name.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Username</label>
+                                {{ form.username }}
+                                {{ form.username.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email Address</label>
+                                {{ form.email }}
+                                {{ form.email.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Phone Number</label>
+                                {{ form.phone }}
+                                {{ form.phone.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Date of Birth</label>
+                                {{ form.date_of_birth }}
+                                {{ form.date_of_birth.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Gender</label>
+                                {{ form.gender }}
+                                {{ form.gender.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Blood Group</label>
+                                {{ form.blood_group }}
+                                {{ form.blood_group.errors }}
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <label class="form-label">Address</label>
+                                {{ form.address }}
+                                {{ form.address.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Password</label>
+                                {{ form.password1 }}
+                                {{ form.password1.errors }}
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Confirm Password</label>
+                                {{ form.password2 }}
+                                {{ form.password2.errors }}
+                            </div>
+
+                        </div>
+
+                        {% if form.username.errors or form.password1.errors or form.password2.errors %}
+                            <div class="alert alert-danger">
+                                Please correct the errors in the registration form.
+                            </div>
+                        {% endif %}
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 login-submit mt-3">
+                            <i class="bi bi-person-check-fill me-2"></i>
+                            Create Patient Account
+                        </button>
+
+                    </form>
+
+                    <div class="login-help">
+                        <p>Already have an account?</p>
+                        <a href="{% url 'login' %}" class="signup-login-link">
+                            Login Here
+                        </a>
+                    </div>
+
+                    <p class="signup-security-note">
+                        <i class="bi bi-shield-check me-1"></i>
+                        Your account is protected by secure password authentication.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

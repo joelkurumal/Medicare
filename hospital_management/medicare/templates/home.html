@@ -1,0 +1,216 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Home | MediCare{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+                <span class="badge bg-light text-primary mb-3">
+                    Welcome to MediCare
+                </span>
+
+                <h1>Advanced Healthcare for a Better Tomorrow</h1>
+
+                <p>
+                    Providing quality healthcare services with experienced
+                    doctors, modern facilities and patient-focused care.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'doctor_list' %}" class="btn btn-light text-primary">
+                        <i class="bi bi-person-badge me-2"></i>
+                        Meet Our Doctors
+                    </a>
+
+                    <a href="{% url 'book_appointment' %}" class="btn btn-outline-light">
+                        <i class="bi bi-calendar2-check me-2"></i>
+                        Take Appointment
+                    </a>
+
+                    <a href="{% url 'department_list' %}" class="btn btn-outline-light">
+                        Explore Departments
+                    </a>
+
+                    <a href="{% url 'patient_signup' %}" class="btn btn-outline-light">
+                        <i class="bi bi-person-plus me-2"></i>New Patient? Sign Up
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="text-center">
+                    <i class="bi bi-hospital"
+                       style="font-size: 190px; color: #ffffff; opacity: 0.9;"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>Our Healthcare Services</h2>
+            <p>Explore the services available through our hospital management system.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-hospital"></i>
+                    </div>
+                    <h3>Departments</h3>
+                    <p>Explore our specialized medical departments and healthcare services.</p>
+                    <a href="{% url 'department_list' %}" class="btn btn-outline-primary">
+                        Explore Departments
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <h3>Our Doctors</h3>
+                    <p>Find experienced medical professionals and their specializations.</p>
+                    <a href="{% url 'doctor_list' %}" class="btn btn-outline-primary">
+                        View Doctors
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3>Patients</h3>
+                    <p>Access registered patient information and profile details.</p>
+                    <a href="{% url 'patient_list' %}" class="btn btn-outline-primary">
+                        View Patients
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <h3>Appointments</h3>
+                    <p>View appointment schedules and their current status.</p>
+                    <a href="{% url 'appointment_list' %}" class="btn btn-outline-primary">
+                        View Appointments
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-file-medical"></i>
+                    </div>
+                    <h3>Medical Records</h3>
+                    <p>View patient diagnoses and consultation information.</p>
+                    <a href="{% url 'medical_record_list' %}" class="btn btn-outline-primary">
+                        View Records
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-capsule"></i>
+                    </div>
+                    <h3>Prescriptions</h3>
+                    <p>View medicine details, dosage and prescription instructions.</p>
+                    <a href="{% url 'prescription_list' %}" class="btn btn-outline-primary">
+                        View Prescriptions
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Department Logos Preview -->
+<section class="section-padding">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Our Departments</h2>
+      <p>Explore our specialized healthcare departments.</p>
+    </div>
+    <div class="home-department-grid">
+      {% for department in departments %}
+        <a href="{% url 'doctors_by_department' department.id %}" class="department-card-link">
+          <div class="department-card">
+            <div class="department-logo">
+              {% if department.logo %}<img src="{{ department.logo.url }}" alt="{{ department.name }} logo">{% else %}<i class="bi bi-hospital"></i>{% endif %}
+            </div>
+            <h5>{{ department.name }}</h5>
+            <p>{{ department.description|default:"Specialized healthcare services."|truncatewords:18 }}</p>
+          </div>
+        </a>
+      {% empty %}<p>No departments have been added yet.</p>{% endfor %}
+    </div>
+    <div class="text-center mt-4"><a href="{% url 'department_list' %}" class="btn btn-outline-primary">View All Departments</a></div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center g-4">
+
+            <div class="col-lg-6">
+                <div class="service-icon" style="margin-left: 0;">
+                    <i class="bi bi-heart-pulse"></i>
+                </div>
+
+                <h2>Your Health, Our Priority</h2>
+
+                <p>
+                    MediCare is designed to simplify hospital operations
+                    through organized patient information, doctor profiles,
+                    appointment management and medical records.
+                </p>
+
+                <p>
+                    Our goal is to support efficient healthcare management
+                    and improve access to important hospital information.
+                </p>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="p-5 rounded-4 text-center"
+                     style="background: #E0F2FE;">
+                    <i class="bi bi-shield-check"
+                       style="font-size: 100px; color: #1E3A8A;"></i>
+                    <h3 class="mt-3" style="color: #1E3A8A;">
+                        Trusted Healthcare Management
+                    </h3>
+                    <p class="text-muted mb-0">
+                        Organized. Accessible. Patient-focused.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
